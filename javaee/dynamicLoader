@@ -1,0 +1,55 @@
+import java.awt.peer.SystemTrayPeer;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+import java.util.*;
+
+interface Human{
+    String getBelief();
+    void eat(String food);
+}
+class SuperMan implements Human{
+
+    public String getBelief() {
+        return "I can fly";
+    }
+
+    public void eat(String food) {
+        System.out.println("I like eat " + food);
+    }
+}
+
+class ProxyFactory{
+    public static Object getInstance(Object obj){
+
+        Handler handler = new Handler();
+        handler.bind(obj);
+        return Proxy.newProxyInstance(obj.getClass().getClassLoader(),obj.getClass().getInterfaces(), handler);
+    }
+}
+
+class Handler implements InvocationHandler{
+
+    private Object obj;
+
+    public void bind(Object obj){
+        this.obj = obj;
+    }
+
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        return method.invoke(obj,args);
+    }
+}
+
+public class DynamicProxyTest {
+    public static void main(String[] args) {
+//        SuperMan man1 = new SuperMan();
+//        Human h1 = (Human) ProxyFactory.getProxyInstance(man1);
+//        System.out.println(h1.getBelief());
+//        h1.eat("Hai xian");
+      //动态加载
+        SuperMan man2 = new SuperMan();
+        Human h1 = (Human) ProxyFactory.getInstance(man2);
+        System.out.println(h1.getBelief());
+    }
+}
