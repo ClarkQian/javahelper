@@ -26,6 +26,7 @@ public class Hello2Servlet extends HttpServlet {
         PrintWriter out = resp.getWriter();
         out.println("This is get");
         out.close();
+        //super.doGet(req,resp); 有了之后service 才能继续往下分发，不然分发会停止
     }
 
     @Override
