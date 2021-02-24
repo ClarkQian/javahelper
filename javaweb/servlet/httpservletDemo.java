@@ -12,7 +12,7 @@ import java.io.PrintWriter;
 通过重写父类的方法，实现对于请求的分发
 需要再web.xml中注册servlet并且指定url的地址
 
-html中的action的地址 ‘/’ 是从 ip:port开始的： 因为这个是浏览器解析的
+html中的action的地址 ‘/’ 是从 ip:port开始的： 因为这个是浏览器解析的：sendRedirect('/')是特殊的对浏览器发出的请求
 但是 urlmapping 里面的/是指的是ip:port/webproject/ : 这个是服务器解析的
 */
 
