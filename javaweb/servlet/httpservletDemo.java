@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 
 
 /*
+编码：response.setContentType("text/html; charset=UTF-8"); //防止中文乱码
+
 通过重写父类的方法，实现对于请求的分发
 需要再web.xml中注册servlet并且指定url的地址
 
