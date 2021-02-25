@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+">
+<!--    这里的p空间是用来便捷的调用构造函数的-->
+<!--    context是导入外部properties的，注意后面的schemalacation要修改
+      autowire="Name/Type"自动注入的方式
+-->
+
+    <context:property-placeholder location="classpath:jdbc.properties"></context:property-placeholder>
+    <bean id="contextusr" class="Person">
+        <property name="name" value="${name}"></property>
+        <property name="age" value="${age}"></property>
+    </bean>
+
+  
+  
+  
+    <bean id="usr" class="Person">
+        <property name="name" value="Mike"></property>
+        <property name="age" value="19"></property>
+    </bean>
+    <bean id="name2" class="Person">
+        <constructor-arg name="name" value="&lt;mike>>"></constructor-arg>
+        <constructor-arg name="age" value="19"></constructor-arg>
+    </bean>
+    <bean id="name3" class="Person" p:name="IO" p:age="19">
+    </bean>
+
+    <bean id="service1" class="PersonService">
+        <property name="dao" ref="dao1"></property>
+    </bean>
+    <bean id="dao1" class="PersonDaoImpl"></bean>
+
+    <bean id="service2" class="PersonService">
+        <property name="dao">
+            <bean class="PersonDaoImpl"></bean>
+        </property>
+    </bean>
+
+
+    <bean id="dept" class="Dept">
+        <property name="persons">
+            <array>
+                <bean class="Person" p:name="ioj" p:age="19">
+
+                </bean>
+                <ref bean="usr"></ref>
+                <ref bean="usr"></ref>
+                <ref bean="usr"></ref>
+            </array>
+        </property>
+
+        <property name="persons2">
+            <list>
+                <ref bean="usr"></ref>
+                <ref bean="usr"></ref>
+                <ref bean="usr"></ref>
+            </list>
+        </property>
+
+
+        <property name="persons3">
+            <map>
+                <entry key="123" value="1234"></entry>
+                <entry key="124" value="1234"></entry>
+                <entry key="125" value="1234"></entry>
+            </map>
+        </property>
+
+
+    </bean>
+</beans>
